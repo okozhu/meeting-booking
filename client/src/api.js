@@ -1,15 +1,13 @@
-const API = "http://localhost:4000";
-
 export const auth = {
     register: (payload) => {
-        return fetch(`${API}/api/auth/register`, {
+        return fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
         }).then(res => res.json());
     },
     login: (payload) => {
-        return fetch(`${API}/api/auth/login`, {
+        return fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
@@ -33,15 +31,15 @@ export const getUserRole = () => {
 
 export const api = {
     getBusinesses: () => {
-        const url = `${API}/api/business`;
+        const url = `${import.meta.env.VITE_API_URL}/api/business`;
         return fetch(url).then(res => res.json());
     },
     getAppointments: () => {
-        const url = `${API}/api/appointments?id=${getUserId()}&role=${getUserRole()}`;
+        const url = `${import.meta.env.VITE_API_URL}/api/appointments?id=${getUserId()}&role=${getUserRole()}`;
         return fetch(url).then(res => res.json());
     },
     book: ({ businessId, startsAt }) => {
-        const url = `${API}/api/appointments`;
+        const url = `${import.meta.env.VITE_API_URL}/api/appointments`;
         const body = { businessId, startsAt, clientId: getUserId() }
         return fetch(url, {
             method: "POST",
@@ -50,13 +48,13 @@ export const api = {
         }).then(res => res.json());
     },
     cancel: (id) => {
-        const url = `${API}/api/appointments/${id}/cancel`;
+        const url = `${import.meta.env.VITE_API_URL}/api/appointments/${id}/cancel`;
         return fetch(url, {
             method: "PATCH",
         });
     },
     reschedule: (id, startsAt) => {
-        const url = `${API}/api/appointments/${id}`;
+        const url = `${import.meta.env.VITE_API_URL}/api/appointments/${id}`;
         const body = { startsAt };
         return fetch(url, {
             method: "PATCH",
